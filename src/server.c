@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lfilipe- <coder@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 20:58:52 by lfilipe-          #+#    #+#             */
-/*   Updated: 2022/02/11 00:42:00 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/12 20:23:44 by lfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,4 @@ int	main(void)
 	sigaction(SIGUSR2, &s_signal, NULL);
 	while (1)
 		pause();
-	return (0);
 }

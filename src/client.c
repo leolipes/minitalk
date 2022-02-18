@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lfilipe- <coder@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 20:58:57 by lfilipe-          #+#    #+#             */
-/*   Updated: 2022/02/11 00:41:58 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/12 20:17:04 by lfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	send_signals(pid_t pid, char *str)
 		shift = 0;
 		while (shift <= 7)
 		{
-			if (str[i] & 128 >> shift)
+			if (str[i] & (128 >> shift))
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
@@ -86,9 +86,10 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	if (!pid)
 		print_error();
-	sigemptyset(&s_signal.sa_mask);
+	sigemptyset(&s_signal.sa_mask);/*sigemptyset: Inicializa um conjunto de sinais definido para o conjunto vazio. Todos os sinais reconhecidos são excluídos.*/
+	/*sa_mask especifica uma máscara de sinais que devem ser bloqueados (ou seja, adicionado à máscara de sinal da thread em que o sinal manipulador é invocado) durante a execução do manipulador de sinal*/
 	s_signal.sa_handler = &handler;
-	s_signal.sa_flags = SA_RESTART;
+	s_signal.sa_flags = SA_RESTART;//Este sinalizador é significativo apenas ao estabelecer um sinal manipulador.
 	sigaction(SIGUSR1, &s_signal, NULL);
 	send_signals(pid, argv[2]);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lfilipe- <coder@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 20:58:57 by lfilipe-          #+#    #+#             */
-/*   Updated: 2022/02/12 20:17:04 by lfilipe-         ###   ########.fr       */
+/*   Updated: 2022/02/19 01:37:25 by lfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,18 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	if (!pid)
 		print_error();
-	sigemptyset(&s_signal.sa_mask);/*sigemptyset: Inicializa um conjunto de sinais definido para o conjunto vazio. Todos os sinais reconhecidos são excluídos.*/
-	/*sa_mask especifica uma máscara de sinais que devem ser bloqueados (ou seja, adicionado à máscara de sinal da thread em que o sinal manipulador é invocado) durante a execução do manipulador de sinal*/
+	sigemptyset(&s_signal.sa_mask);
+	/*
+	**sigemptyset: Initializes a set of signals defined to the empty set. All
+	**recognized signals are deleted.
+	*/
+	/*
+	**sa_mask specifies a mask of signals that should be blocked (that is,
+	**added to the signal mask of the thread on which the signal handler is
+	**invoked) during execution of the signal handler
+	*/
 	s_signal.sa_handler = &handler;
-	s_signal.sa_flags = SA_RESTART;//Este sinalizador é significativo apenas ao estabelecer um sinal manipulador.
+	s_signal.sa_flags = SA_RESTART;//Restart syscalls if possible
 	sigaction(SIGUSR1, &s_signal, NULL);
 	send_signals(pid, argv[2]);
 	return (0);
